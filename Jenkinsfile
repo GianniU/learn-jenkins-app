@@ -25,6 +25,7 @@ pipeline {
                 sh '''
                     echo "Test stage"
                     test -f build/index.html
+                    Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
                     npm test
                 '''
             }
