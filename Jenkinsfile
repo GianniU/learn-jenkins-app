@@ -22,7 +22,7 @@ pipeline {
             }
         } 
 
-       /*  stage('Run Tests'){
+         stage('Run Tests'){
             parallel{
                 stage('test'){
                     agent{
@@ -85,7 +85,7 @@ pipeline {
                     netlify --version
                 '''
             }
-        }  */
+        }
 
 
     }
