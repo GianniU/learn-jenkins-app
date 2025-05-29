@@ -1,7 +1,7 @@
 pipeline {
     agent any
 
-    stages {
+    /* stages {
         stage('build') {
             agent{
                 docker{
@@ -19,7 +19,7 @@ pipeline {
                     ls -la
                 '''
             }
-        }
+        } */
         stage('test'){
             agent{
                 docker{
