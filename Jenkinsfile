@@ -35,6 +35,23 @@ pipeline {
                 '''
             }
         }
+
+        stage('E2E'){
+            agent{
+                docker{
+                    image 'mcr.microsoft.com/playwright:v1.52.0-noble'
+                    reuseNode true
+                    args '-u root:root'
+                }
+            }
+            steps{
+                sh '''
+                    npm install serve
+                    node_modules/.bin/serve -s build
+                    npx playwright test
+                '''
+            }
+        }
     }
 
     post{
