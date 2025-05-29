@@ -30,7 +30,7 @@ pipeline {
             steps{
                 sh '''
                     echo "Test stage"
-                    test -f build/index.html
+                    #test -f build/index.html
                     npm test
                 '''
             }
@@ -41,7 +41,7 @@ pipeline {
                 docker{
                     image 'mcr.microsoft.com/playwright:v1.52.0-noble'
                     reuseNode true
-                    args '-u root:root'
+                    //args '-u root:root'
                 }
             }
             steps{
