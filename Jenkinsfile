@@ -79,7 +79,27 @@ pipeline {
             }
         }
 
-        stage('Deploy') {
+
+        stage('Deploy staging') {
+            agent{
+                docker{
+                    image 'node:18-alpine'
+                    reuseNode true
+                    args '-u root:root'
+                }
+            }
+            steps {
+                sh '''
+                    npm install netlify-cli@20.1.1
+                    node_modules/.bin/netlify --version
+                    echo "Deploying to stging. Project ID: $NETLIFY_SITE_ID"
+                    node_modules/.bin/netlify status
+                    node_modules/.bin/netlify deploy --dir=build
+                '''
+            }
+        }
+
+        stage('Deploy production') {
             agent{
                 docker{
                     image 'node:18-alpine'
@@ -98,7 +118,7 @@ pipeline {
             }
         }
 
-        stage('Prod E2E'){
+        /* stage('Prod E2E'){
             agent{
                 docker{
                     image 'mcr.microsoft.com/playwright:v1.52.0-noble       '
@@ -121,6 +141,6 @@ pipeline {
                     publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, icon: '', keepAll: false, reportDir: 'playwright-report', reportFiles: 'index.html', reportName: 'Playwright HTML Report', reportTitles: '', useWrapperFileDirectly: true])
                 }
             }
-        }
+        } */
     }
 }
